@@ -246,7 +246,7 @@ function spawnIcon(){
 
   const rect = fieldEl.getBoundingClientRect();
   const x = Math.random() * (rect.width - ICON_SIZE);
-  const speed = 260 + Math.random() * 160;
+  const speed = 200 + Math.random() * 130;
 
   const node = document.createElement('img');
   node.className = 'falling-ico ' + (isBad ? 'bad' : 'good');
