@@ -51,10 +51,10 @@ function renderWallet(){
 /* ===== МАГАЗИН ===== */
 const SHOP_ITEMS = [
   {id:'d5',   name:'СКИДКА 5%',       price:10000,  type:'discount', value:5},
-  {id:'d10',  name:'СКИДКА 10%',      price:20000,  type:'discount', value:10},
-  {id:'d15',  name:'СКИДКА 15%',      price:30000,  type:'discount', value:15},
-  {id:'d25',  name:'СКИДКА 25%',      price:50000,  type:'discount', value:25},
-  {id:'beat', name:'БЕСПЛАТНЫЙ БИТ',  price:100000, type:'freebie',  value:100},
+  {id:'d10',  name:'СКИДКА 10%',      price:15000,  type:'discount', value:10},
+  {id:'d15',  name:'СКИДКА 15%',      price:20000,  type:'discount', value:15},
+  {id:'d25',  name:'СКИДКА 25%',      price:25000,  type:'discount', value:25},
+  {id:'beat', name:'БЕСПЛАТНЫЙ БИТ',  price:30000, type:'freebie',  value:100},
 ];
 
 function renderShop(){
