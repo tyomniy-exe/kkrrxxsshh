@@ -1,7 +1,31 @@
 /* ===== мобильное меню ===== */
-const burger=document.getElementById('burger'),navLinks=document.getElementById('navLinks');
-if(burger) burger.addEventListener('click',()=>{burger.classList.toggle('open');navLinks.classList.toggle('open')});
-if(navLinks) navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{burger&&burger.classList.remove('open');navLinks.classList.remove('open')}));
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+
+function closeMenu() {
+  if (burger) burger.classList.remove('open');
+  if (navLinks) navLinks.classList.remove('open');
+}
+
+if (burger && navLinks) {
+  // Клик по бургеру (открыть/закрыть)
+  burger.addEventListener('click', (e) => {
+    e.stopPropagation(); // Чтобы клик не улетал в document
+    burger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+
+  // Клик по любой ссылке в меню — закрыть
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  // КЛИК В ЛЮБОЕ ДРУГОЕ МЕСТО — закрыть меню
+  document.addEventListener('click', (e) => {
+    // Если меню открыто, и клик был НЕ по меню и НЕ по бургеру
+    if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !burger.contains(e.target)) {
+      closeMenu();
+    }
+  });
+}
 
 /* ===== reveal ===== */
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
