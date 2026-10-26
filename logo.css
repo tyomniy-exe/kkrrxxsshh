@@ -1,0 +1,7 @@
+/* Логотип: анимация «лага» задана в styles.css на .hero-logo-glitch img */
+.hero-logo-glitch::before,
+.hero-logo-glitch::after{display:none !important}
+
+@media(prefers-reduced-motion:reduce){
+  .hero-logo-glitch img{animation:none !important}
+}

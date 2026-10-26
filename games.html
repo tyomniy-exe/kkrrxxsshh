@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⛧ KKRX GAMES ⛧</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=JetBrains+Mono:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="games.css">
+</head>
+<body>
+
+<!-- ===== НАВ-ПАНЕЛЬ ===== -->
+<header class="g-header">
+  <a href="index.html" class="g-back" aria-label="Назад">←</a>
+
+  <a href="games.html" class="g-logo" data-text="KKRX">
+    <img src="files/main-logo-dark.png" alt="KKRX"
+         onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'KKRX',className:'g-logo-fallback'}))">
+  </a>
+
+  <div class="g-wallet">
+    <div class="g-wallet-item">
+      <span class="g-wallet-label">ОЧКИ</span>
+      <span class="g-wallet-val" id="pointsVal">0</span>
+    </div>
+    <div class="g-wallet-item">
+      <span class="g-wallet-label">ПОПЫТКИ</span>
+      <span class="g-wallet-val" id="attemptsVal">5/5</span>
+    </div>
+  </div>
+</header>
+
+<main class="g-main">
+
+  <!-- ===== ТАБЫ ===== -->
+  <nav class="g-tabs" role="tablist">
+    <button class="g-tab active" data-view="game" role="tab">ИГРА</button>
+    <button class="g-tab" data-view="shop" role="tab">МАГАЗИН</button>
+    <button class="g-tab" data-view="promos" role="tab">ПРОМОКОДЫ</button>
+  </nav>
+
+  <!-- ===== ИГРА ===== -->
+  <section class="g-view active" id="view-game" data-view="game">
+
+    <div class="g-intro" id="gameIntro">
+      <div class="g-intro-kicker">60 СЕКУНД · 5 ПОПЫТОК В ДЕНЬ</div>
+      <h1 class="g-intro-title">KKRX <span>CATCHER</span></h1>
+      <p class="g-intro-desc">
+        Лови <b>зомби, мозги и звёзды</b> — <b class="pos">+4</b> очка.<br>
+        Избегай <b>вампиров и капель крови</b> — <b class="neg">−15</b> очков.<br>
+        Пропустишь хорошую иконку — <b class="neg">−1</b>.
+      </p>
+      <button class="g-btn g-btn-primary g-btn-xl" id="startGame">▶ ИГРАТЬ</button>
+      <p class="g-intro-note" id="attemptsNote"></p>
+    </div>
+
+    <div class="g-stage" id="gameStage" hidden>
+      <div class="g-hud">
+        <div class="g-hud-item">
+          <span class="g-hud-label">ВРЕМЯ</span>
+          <span class="g-hud-val" id="hudTime">60</span>
+        </div>
+        <div class="g-hud-item g-hud-score">
+          <span class="g-hud-label">ОЧКИ</span>
+          <span class="g-hud-val" id="hudScore">0</span>
+        </div>
+      </div>
+      <div class="g-field" id="gameField"></div>
+    </div>
+
+    <div class="g-result" id="gameResult" hidden>
+      <div class="g-result-kicker">ЗАБЕГ ОКОНЧЕН</div>
+      <div class="g-result-score"><span id="resultScore">0</span></div>
+      <p class="g-result-desc">Сохранено в кошелёк · всего <b id="resultTotal">0</b></p>
+      <div class="g-result-actions">
+        <button class="g-btn g-btn-primary" id="playAgain">ИГРАТЬ СНОВА</button>
+        <button class="g-btn" id="toShop">В МАГАЗИН →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== МАГАЗИН ===== -->
+  <section class="g-view" id="view-shop" data-view="shop">
+    <div class="g-shop-grid" id="shopGrid"></div>
+  </section>
+
+  <!-- ===== ПРОМОКОДЫ ===== -->
+  <section class="g-view" id="view-promos" data-view="promos">
+    <div class="g-promo-list" id="promoList"></div>
+  </section>
+
+</main>
+
+<script src="games.js"></script>
+</body>
+</html>

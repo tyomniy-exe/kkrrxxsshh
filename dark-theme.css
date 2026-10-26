@@ -1,0 +1,268 @@
+/* =========================================================
+   ТЁМНАЯ КРИПИПАСТА-ТЕМА
+   Подключается ПОСЛЕ styles.css в index.html и games.html
+   ========================================================= */
+
+/* ===== ПЕРЕМЕННЫЕ ===== */
+html[data-theme="dark"]{
+  --xp-face:#2a0e0e;
+  --xp-face-2:#1a0808;
+  --xp-shadow:#400000;
+  --xp-dark:#120000;
+  --xp-light:#3a1010;
+  --xp-title-active:linear-gradient(180deg,#8b0000 0%,#c00000 8%,#5a0000 40%,#5a0000 88%,#2a0000 100%);
+  --link:#ff5555;
+  --visited:#aa3333;
+}
+
+/* ===== БАЗА ===== */
+html[data-theme="dark"] body{
+  color:#b8b8b8;
+  background:#0a0505;
+}
+html[data-theme="dark"] .site-bg--dark{
+  filter:brightness(.55) saturate(.85) hue-rotate(-10deg);
+}
+/* Сканлайн-оверлей поверх всего */
+html[data-theme="dark"] body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;
+  background:repeating-linear-gradient(0deg,
+    rgba(255,0,0,.03) 0 1px, transparent 1px 3px);
+  mix-blend-mode:overlay;
+}
+
+/* ===== ВИДИМОСТЬ ФОНА И ГИФОК ===== */
+/* Светлая тема: прячем тёмные версии */
+html:not([data-theme="dark"]) .site-bg--dark,
+html:not([data-theme="dark"]) .gif-dark,
+html:not([data-theme="dark"]) .logo-dark{
+  display:none !important;
+}
+/* Тёмная тема: прячем светлые версии */
+html[data-theme="dark"] .site-bg--light,
+html[data-theme="dark"] .gif-light,
+html[data-theme="dark"] .logo-light{
+  display:none !important;
+}
+/* Кроссфейд */
+.site-bg{transition:opacity .35s ease}
+
+/* ===== ОКНА XP ===== */
+html[data-theme="dark"] section{
+  background:#1a0808;
+  border-color:#3a1010 #120000 #120000 #3a1010;
+  box-shadow:inset -1px -1px 0 #400000, inset 1px 1px 0 #3a1010,
+             2px 2px 12px rgba(180,0,0,.25);
+}
+html[data-theme="dark"] .sec-head h2{
+  text-shadow:1px 1px 0 #2a0000, 0 0 8px #ff000088;
+}
+html[data-theme="dark"] .sec-head p{color:#b8b8b8}
+
+/* ===== КАРТОЧКИ / АУДИО ===== */
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .audio-row{
+  background:#100404;
+  border-color:#4a0f0f;
+  color:#b8b8b8;
+}
+html[data-theme="dark"] .audio-row.active{
+  background:#2a0505;
+  box-shadow:0 0 12px #c0000033 inset;
+}
+html[data-theme="dark"] .audio-title{color:#ff6666}
+html[data-theme="dark"] .audio-meta{color:#8b4444}
+html[data-theme="dark"] .ar-bar{background:#000;border-color:#400000 #200000 #200000 #400000}
+html[data-theme="dark"] .ar-fill{background:linear-gradient(90deg,#8b0000,#ff1a1a)}
+html[data-theme="dark"] .ar-time{color:#aa4444}
+html[data-theme="dark"] .ar-play,
+html[data-theme="dark"] .ar-vol-btn,
+html[data-theme="dark"] .ctrl{
+  background:#2a0e0e;color:#ff6666;
+  border-color:#5a1010 #120000 #120000 #5a1010;
+}
+html[data-theme="dark"] .ar-play.playing{background:#5a0000;color:#fff}
+
+/* ===== КНОПКИ ===== */
+html[data-theme="dark"] .btn,
+html[data-theme="dark"] button{
+  background:#2a0e0e;color:#ff8888;
+  border-color:#5a1010 #120000 #120000 #5a1010;
+}
+html[data-theme="dark"] .btn:hover,
+html[data-theme="dark"] button:hover{background:#3a1010;color:#fff}
+
+/* ===== УСЛУГИ ===== */
+html[data-theme="dark"] .service{background:#140606;border-color:#4a0f0f}
+html[data-theme="dark"] .service-head{background:#2a0e0e;color:#ff6666;border-bottom-color:#4a0f0f}
+html[data-theme="dark"] .service-head:hover{background:#3a1010}
+html[data-theme="dark"] .service-head h4{color:#ff8888}
+html[data-theme="dark"] .service-body{background:#100404;color:#b8b8b8}
+html[data-theme="dark"] .service-body p{color:#b8b8b8}
+html[data-theme="dark"] .price{color:#ff3333}
+
+/* ===== ТЕГИ / СОЦСЕТИ ===== */
+html[data-theme="dark"] .tag{background:#2a0505;color:#ff6666;border-color:#5a1010}
+html[data-theme="dark"] .plat,
+html[data-theme="dark"] .soc{
+  background:#2a0e0e;color:#ff8888;
+  border-color:#5a1010 #120000 #120000 #5a1010;
+}
+html[data-theme="dark"] .plat:hover,
+html[data-theme="dark"] .soc:hover{background:#3a1010;color:#fff}
+
+/* ===== ПРОЧИЙ ТЕКСТ ===== */
+html[data-theme="dark"] .about p,
+html[data-theme="dark"] .about strong,
+html[data-theme="dark"] .modal-sub,
+html[data-theme="dark"] .modal-body h3{color:#b8b8b8}
+html[data-theme="dark"] .about strong{color:#ff6666}
+html[data-theme="dark"] .muted{color:#8b4444}
+
+/* ===== MARQUEE / BADGES / COUNTER ===== */
+html[data-theme="dark"] .marquee-wrap{background:#1a0505;color:#ff6666;border-color:#400000}
+html[data-theme="dark"] .hit-counter{background:#000;color:#ff1a1a;border-color:#5a0000}
+html[data-theme="dark"] .hit-counter .digits{background:#0a0000;color:#ff1a1a}
+
+/* ===== FOOTER ===== */
+html[data-theme="dark"] footer{
+  background:#140606;color:#aa4444;
+  border-color:#4a0f0f #120000 #120000 #4a0f0f;
+}
+html[data-theme="dark"] .f-logo{color:#ff3333}
+
+/* ===== МОДАЛКА ===== */
+html[data-theme="dark"] .modal-panel{
+  background:#1a0808;
+  border-color:#5a1010 #120000 #120000 #5a1010;
+}
+html[data-theme="dark"] .modal-titlebar{background:var(--xp-title-active)}
+html[data-theme="dark"] .xp-close{
+  background:#2a0e0e;color:#ff6666;
+  border-color:#5a1010 #120000 #120000 #5a1010;
+}
+
+/* ===== XP TASKBAR ===== */
+html[data-theme="dark"] .xp-taskbar{
+  background:linear-gradient(180deg,#5a0000,#2a0000);
+  border-top:2px solid #c00000;
+  box-shadow:0 -2px 8px rgba(180,0,0,.45);
+}
+html[data-theme="dark"] .xp-start{
+  background:linear-gradient(180deg,#8b0000,#3a0000);
+  border-color:#c00000 #2a0000 #2a0000 #c00000;
+  text-shadow:1px 1px 0 #2a0000, 0 0 6px #ff000088;
+}
+html[data-theme="dark"] .xp-tray,
+html[data-theme="dark"] .xp-task{
+  background:linear-gradient(180deg,#8b0000,#3a0000);
+  border-color:#c00000 #2a0000 #2a0000 #c00000;
+  border-top-color:#ff5555;
+  color:#ffb8b8;
+}
+html[data-theme="dark"] .xp-task:hover{filter:brightness(1.4);color:#fff}
+html[data-theme="dark"] .xp-tray .clock{color:#ff6666}
+
+/* ===== ИКОНКИ РАБОЧЕГО СТОЛА ===== */
+html[data-theme="dark"] .desktop-icons .dicon{color:#c08080}
+html[data-theme="dark"] .dicon .ico{background:#1a0808;border-color:#5a1010;color:#ff6666}
+html[data-theme="dark"] .dicon:hover .ico{background:#3a1010}
+
+/* ===== HEADER / НАВ-ПАНЕЛЬ ===== */
+html[data-theme="dark"] header{
+  background:linear-gradient(180deg,#3a0000 0%,#8b0000 8%,#5a0000 40%,#5a0000 88%,#1a0000 100%);
+  border-bottom:2px solid #c00000;
+  box-shadow:0 2px 8px rgba(180,0,0,.5);
+}
+html[data-theme="dark"] .nav-links a{
+  background:linear-gradient(180deg,#8b0000,#3a0000);
+  border:1px solid #c00000;
+  border-top-color:#ff5555;
+  color:#ffb8b8;
+  text-shadow:1px 1px 0 #2a0000;
+}
+html[data-theme="dark"] .nav-links a:visited{color:#ffb8b8}
+html[data-theme="dark"] .nav-links a:hover{
+  background:linear-gradient(180deg,#c00000,#5a0000);
+  color:#fff;
+  text-shadow:1px 1px 0 #2a0000, 0 0 6px #ff000088;
+}
+html[data-theme="dark"] .brand{
+  color:#ff6666;
+  text-shadow:1px 1px 0 #2a0000, 0 0 6px #ff000066;
+}
+html[data-theme="dark"] .brand:visited{color:#ff6666}
+html[data-theme="dark"] .brand:hover{color:#fff}
+html[data-theme="dark"] .burger span{background:#ff6666}
+html[data-theme="dark"] .burger:hover span{background:#fff;box-shadow:0 0 6px #ff0000}
+
+/* ===== ЛОГОТИП: глитч в тёмной теме ===== */
+html[data-theme="dark"] .hero-logo-glitch .logo-dark{
+  animation:logoLagDark 10s infinite steps(1);
+  will-change:transform, filter;
+  filter:drop-shadow(0 0 10px #c00000aa) contrast(1.1);
+}
+@keyframes logoLagDark{
+  0%,  20%, 100%{transform:translate(1px,0)}
+  21%{transform:translate(-30px,1px)}
+  22%{transform:translate(2px,-1px)}
+  23%{transform:translate(30px,0)}
+  55%{transform:translate(0,-2px)}
+  56%{transform:translate(4px,0)}
+  57%{transform:translate(-2px,1px)}
+  58%{transform:translate(4px,-2px)}
+  82%{transform:translate(0,1px)}
+  83%{transform:translate(-5px,-1px)}
+  84%{transform:translate(30px,1px)}
+  85%{transform:translate(10px,0)}
+}
+
+/* ===== КНОПКА-ПЕРЕКЛЮЧАТЕЛЬ ===== */
+.theme-toggle{
+  width:26px;height:26px;padding:0;font-size:14px;line-height:1;
+  border:1px solid;border-color:#fff #404040 #404040 #fff;
+  background:var(--xp-face);cursor:pointer;flex:0 0 auto;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+html[data-theme="dark"] .theme-toggle{
+  background:#2a0e0e;color:#ff6666;
+  border-color:#5a1010 #120000 #120000 #5a1010;
+}
+
+/* ===== СКРЫТАЯ КНОПКА ВХОДА В ИГРЫ ===== */
+.secret-games-btn{
+  position:fixed;right:18px;bottom:48px;z-index:990;
+  padding:10px 18px;
+  background:#5a0000;color:#ff3333;
+  font-family:var(--font-mono);
+  font-size:13px;font-weight:bold;letter-spacing:2px;
+  border:2px solid #c00000;
+  text-shadow:0 0 8px #ff0000;
+  box-shadow:0 0 20px #c0000088, inset 0 0 10px #ff000033;
+  cursor:pointer;display:inline-flex;align-items:center;gap:8px;
+  animation:secretPulse 2s ease-in-out infinite;
+}
+.secret-games-btn[hidden]{display:none}
+.secret-games-btn:hover{background:#8b0000;color:#fff;box-shadow:0 0 30px #ff0000}
+@keyframes secretPulse{
+  0%,100%{transform:scale(1);opacity:.95}
+  50%{transform:scale(1.06);opacity:1}
+}
+
+/* ===== GLITCH ПРИ ПЕРЕКЛЮЧЕНИИ ===== */
+html.theme-glitch body{
+  animation:themeGlitch .32s steps(2,end);
+}
+@keyframes themeGlitch{
+  0%  {filter:invert(1) hue-rotate(90deg)}
+  33% {filter:invert(0) hue-rotate(0) brightness(2) saturate(2)}
+  66% {filter:invert(1) hue-rotate(-90deg) contrast(2)}
+  100%{filter:none}
+}
+
+/* ===== ДОСТУПНОСТЬ ===== */
+@media (prefers-reduced-motion:reduce){
+  .secret-games-btn{animation:none}
+  html.theme-glitch body{animation:none}
+  html[data-theme="dark"] .hero-logo-glitch .logo-dark{animation:none}
+}
