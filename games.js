@@ -259,8 +259,14 @@ function spawnIcon(){
   node.dataset.y = '-50';
   node.dataset.speed = speed;
 
+  // Убираем стандартное поведение (контекстное меню, перетаскивание)
+  node.addEventListener('contextmenu', e => e.preventDefault());
+  node.addEventListener('dragstart', e => e.preventDefault());
+
+  // Обработка нажатия
   node.addEventListener('pointerdown', (e)=>{
     e.preventDefault();
+    e.stopPropagation(); // Чтобы клик не уходил в поле
     if(!game) return;
     collectIcon(node);
   });
