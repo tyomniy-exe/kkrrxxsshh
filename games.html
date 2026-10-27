@@ -3,21 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⛧ GAME DISCOUNT ⛧</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=JetBrains+Mono:wght@400;700;900&display=swap" rel="stylesheet">
+<title>⛧ KKRX GAMES ⛧</title>
 <link rel="stylesheet" href="games.css">
 </head>
 <body>
+
+<!-- ===== XP TASKBAR ===== -->
+<div class="xp-taskbar">
+  <div class="xp-start">⊞ Пуск</div>
+  <div class="xp-tasks">
+    <a class="xp-task" href="index.html">🌐 kkrrxxsshh — IE</a>
+    <a class="xp-task" href="games.html">🎮 KKRX Games</a>
+  </div>
+  <div class="xp-tray">
+    <span>🔊</span>
+    <span>🌐</span>
+    <span class="clock" id="xpClock">00:00</span>
+  </div>
+</div>
 
 <!-- ===== НАВ-ПАНЕЛЬ ===== -->
 <header class="g-header">
   <a href="index.html" class="g-back" aria-label="Назад">←</a>
 
-  <a href="games.html" class="g-logo" data-text="KKRX">
-    <img src="files/main-logo-dark.png" alt="KKRX"
-         onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'KKRX',className:'g-logo-fallback'}))">
+  <a href="games.html" class="g-logo">
+    <span class="g-logo-fallback">⛧ KKRX GAMES ⛧</span>
   </a>
 
   <div class="g-wallet">
@@ -46,30 +56,26 @@
 
     <div class="g-intro" id="gameIntro">
       <div class="g-intro-kicker">60 СЕКУНД · 5 ПОПЫТОК В ДЕНЬ</div>
-      <h1 class="g-intro-title">GAME <span>DISCOUNT</span></h1>
+      <h1 class="g-intro-title">BITCOIN <span>CATCHER</span></h1>
       <p class="g-intro-desc">
         Лови <b>зомби, мозги и звёзды</b> — <b class="pos">+4</b> очка.<br>
         Избегай <b>вампиров и капель крови</b> — <b class="neg">−15</b> очков.<br>
         Пропустишь хорошую иконку — <b class="neg">−1</b>.
       </p>
-
-<p class="g-intro-desc" style="color: var(--red); font-weight: bold; margin-bottom: 24px;">
-        Купленные коды присылай менеджеру: @kkrrxxsshh. exchange for Bitcoin
-      </p>
-      
       <button class="g-btn g-btn-primary g-btn-xl" id="startGame">▶ ИГРАТЬ</button>
       <p class="g-intro-note" id="attemptsNote"></p>
     </div>
 
     <div class="g-stage" id="gameStage" hidden>
-      <div class="g-hud">
-        <div class="g-hud-item">
+      <!-- ===== БОЛЬШОЙ HUD ===== -->
+      <div class="g-hud-big">
+        <div class="g-hud-time">
           <span class="g-hud-label">ВРЕМЯ</span>
-          <span class="g-hud-val" id="hudTime">60</span>
+          <span class="g-hud-big-val" id="hudTime">60</span>
         </div>
-        <div class="g-hud-item g-hud-score">
+        <div class="g-hud-score-big">
           <span class="g-hud-label">ОЧКИ</span>
-          <span class="g-hud-val" id="hudScore">0</span>
+          <span class="g-hud-big-val" id="hudScore">0</span>
         </div>
       </div>
       <div class="g-field" id="gameField"></div>
@@ -100,5 +106,15 @@
 </main>
 
 <script src="games.js"></script>
+<script>
+/* ===== часы в трее ===== */
+function tickClock(){
+  const c=document.getElementById('xpClock');
+  if(!c) return;
+  const d=new Date();
+  c.textContent=`${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+}
+setInterval(tickClock,15000);tickClock();
+</script>
 </body>
 </html>
