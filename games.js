@@ -1,6 +1,6 @@
 /* =========================================================
    KKRX GAMES — кошелёк, лимит попыток, игра, магазин
-   (версия под новый интерфейс g-*)
+   (версия под новый интерфейс g-*, Y2K dark + pixel bg)
    ========================================================= */
 
 const Store = {
@@ -51,10 +51,10 @@ function renderWallet(){
 /* ===== МАГАЗИН ===== */
 const SHOP_ITEMS = [
   {id:'d5',   name:'СКИДКА 5%',       price:10000,  type:'discount', value:5},
-  {id:'d10',  name:'СКИДКА 10%',      price:15000,  type:'discount', value:10},
-  {id:'d15',  name:'СКИДКА 15%',      price:20000,  type:'discount', value:15},
-  {id:'d25',  name:'СКИДКА 25%',      price:25000,  type:'discount', value:25},
-  {id:'beat', name:'БЕСПЛАТНЫЙ БИТ',  price:30000, type:'freebie',  value:100},
+  {id:'d10',  name:'СКИДКА 10%',      price:20000,  type:'discount', value:10},
+  {id:'d15',  name:'СКИДКА 15%',      price:30000,  type:'discount', value:15},
+  {id:'d25',  name:'СКИДКА 25%',      price:50000,  type:'discount', value:25},
+  {id:'beat', name:'БЕСПЛАТНЫЙ БИТ',  price:100000, type:'freebie',  value:100},
 ];
 
 function renderShop(){
@@ -132,8 +132,8 @@ function buyItem(item){
   alert(
     `Готово!\n\nПромокод:\n${code}\n\n` +
     `Он сохранён во вкладке «МОИ ПРОМОКОДЫ».\n` +
-    `Отправь его в ТГ МЕНЕДЖЕРУ: @kkrrxxsshh\n\n` +
-    `Код одноразовый и привязан к твоему ID.`
+    `Отправь его в ТГ: @kkrrxxsshh\n\n` +
+    `ВАЖНО: код одноразовый и привязан к твоему ID.`
   );
   renderShop();
   renderPromos();
@@ -168,7 +168,6 @@ function renderPromos(){
         b.textContent = '✓';
         setTimeout(()=>{ b.textContent = old; }, 1200);
       }).catch(()=>{
-        // fallback, если clipboard недоступен
         prompt('Скопируй код вручную:', p.code);
       });
     });
@@ -182,8 +181,14 @@ const GOOD_ICONS = [
   'files/icons/good1.png',
   'files/icons/good2.png',
   'files/icons/good3.png',
+  'files/icons/good1.png',
+  'files/icons/good2.png',
+  'files/icons/good3.png',
 ];
 const BAD_ICONS = [
+  'files/icons/bad1.png',
+  'files/icons/bad2.png',
+  'files/icons/bad3.png',
   'files/icons/bad1.png',
   'files/icons/bad2.png',
   'files/icons/bad3.png',
@@ -193,7 +198,7 @@ const GAME_DURATION = 60_000;
 const GOOD_PTS   = 4;
 const BAD_PTS    = -15;
 const MISS_PENALTY = -1;
-const ICON_SIZE  = 44;
+const ICON_SIZE  = 36;
 
 const el = id => document.getElementById(id);
 const introEl = el('gameIntro');
@@ -206,7 +211,54 @@ const resultScoreEl = el('resultScore');
 const resultTotalEl = el('resultTotal');
 
 let game = null;
+let pixelBgRaf = null;
 
+/* =========================================================
+   ПИКСЕЛЬНЫЙ АНИМИРОВАННЫЙ ФОН (Y2K / matrix-style)
+   ========================================================= */
+function startPixelBg(canvas){
+  cancelAnimationFrame(pixelBgRaf);
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const CELL = 4; // размер «пикселя»
+  const cols = Math.floor(W / CELL);
+  const rows = Math.floor(H / CELL);
+  const drops = Array.from({length: cols}, () => Math.random() * rows);
+  const speeds = Array.from({length: cols}, () => 0.3 + Math.random() * 0.7);
+
+  function draw(){
+    // лёгкое затемнение предыдущего кадра → шлейф
+    ctx.fillStyle = 'rgba(10,5,5,0.18)';
+    ctx.fillRect(0, 0, W, H);
+
+    for(let i=0;i<cols;i++){
+      const y = Math.floor(drops[i]) * CELL;
+      const x = i * CELL;
+
+      // основной «пиксель» — красноватый
+      const hue = Math.random() < 0.08 ? '#ff2a3f' : '#5a1010';
+      ctx.fillStyle = hue;
+      ctx.fillRect(x, y, CELL - 1, CELL - 1);
+
+      // иногда яркий блик
+      if(Math.random() < 0.04){
+        ctx.fillStyle = '#ffb8b8';
+        ctx.fillRect(x, y, CELL - 1, CELL - 1);
+      }
+
+      drops[i] += speeds[i];
+      if(drops[i] * CELL > H && Math.random() > 0.975){
+        drops[i] = 0;
+      }
+    }
+    pixelBgRaf = requestAnimationFrame(draw);
+  }
+  draw();
+}
+
+/* =========================================================
+   СТАРТ ИГРЫ
+   ========================================================= */
 function startGame(){
   if(attemptsLeft() <= 0){
     alert('Попытки на сегодня кончились. Возвращайся завтра!');
@@ -221,9 +273,19 @@ function startGame(){
   introEl.hidden = true;
   resultEl.hidden = true;
   stageEl.hidden = false;
-  fieldEl.innerHTML = '';
   hudScore.textContent = '0';
   hudTime.textContent = '60';
+
+  cancelAnimationFrame(pixelBgRaf);
+
+  // ===== пиксельный анимированный фон =====
+  fieldEl.innerHTML = '';
+  const bg = document.createElement('canvas');
+  bg.className = 'g-field-bg';
+  bg.width = 320;
+  bg.height = 240;
+  fieldEl.appendChild(bg);
+  startPixelBg(bg);
 
   game = {
     score: 0,
@@ -234,10 +296,13 @@ function startGame(){
     lastTs: 0
   };
 
-  game.spawnTimer = setInterval(spawnIcon, 300);
+  game.spawnTimer = setInterval(spawnIcon, 160);
   game.raf = requestAnimationFrame(tick);
 }
 
+/* =========================================================
+   СПАВН ИКОНКИ
+   ========================================================= */
 function spawnIcon(){
   if(!game) return;
   const isBad = Math.random() < 0.35;
@@ -246,7 +311,7 @@ function spawnIcon(){
 
   const rect = fieldEl.getBoundingClientRect();
   const x = Math.random() * (rect.width - ICON_SIZE);
-  const speed = 200 + Math.random() * 130;
+  const speed = 220 + Math.random() * 260;
 
   const node = document.createElement('img');
   node.className = 'falling-ico ' + (isBad ? 'bad' : 'good');
@@ -259,14 +324,12 @@ function spawnIcon(){
   node.dataset.y = '-50';
   node.dataset.speed = speed;
 
-  // Убираем стандартное поведение (контекстное меню, перетаскивание)
   node.addEventListener('contextmenu', e => e.preventDefault());
   node.addEventListener('dragstart', e => e.preventDefault());
 
-  // Обработка нажатия
   node.addEventListener('pointerdown', (e)=>{
     e.preventDefault();
-    e.stopPropagation(); // Чтобы клик не уходил в поле
+    e.stopPropagation();
     if(!game) return;
     collectIcon(node);
   });
@@ -275,6 +338,9 @@ function spawnIcon(){
   game.icons.add(node);
 }
 
+/* =========================================================
+   СБОР ИКОНКИ
+   ========================================================= */
 function collectIcon(node){
   if(!node.parentNode) return;
   const isBad = node.dataset.bad === '1';
@@ -304,6 +370,9 @@ function collectIcon(node){
   game.icons.delete(node);
 }
 
+/* =========================================================
+   ИГРОВОЙ ЦИКЛ
+   ========================================================= */
 function tick(ts){
   if(!game) return;
   if(!game.lastTs) game.lastTs = ts;
@@ -322,9 +391,25 @@ function tick(ts){
     if(y > fieldH){
       const isBad = node.dataset.bad === '1';
       if(!isBad){
+        // ===== ВИЗУАЛ ПРОПУСКА =====
         game.score += MISS_PENALTY;
         if(game.score < 0) game.score = 0;
         hudScore.textContent = game.score;
+
+        const pop = document.createElement('div');
+        pop.className = 'score-pop miss';
+        pop.textContent = MISS_PENALTY;
+        pop.style.left = (parseFloat(node.style.left) + 16) + 'px';
+        pop.style.top  = (fieldH - 30) + 'px';
+        fieldEl.appendChild(pop);
+        setTimeout(()=>pop.remove(), 550);
+
+        if(hudScore.animate){
+          hudScore.animate(
+            [{transform:'scale(1)'},{transform:'scale(1.15) translateY(2px)'},{transform:'scale(1)'}],
+            {duration:220, easing:'ease-out'}
+          );
+        }
       }
       node.remove();
       game.icons.delete(node);
@@ -338,8 +423,12 @@ function tick(ts){
   game.raf = requestAnimationFrame(tick);
 }
 
+/* =========================================================
+   КОНЕЦ ИГРЫ
+   ========================================================= */
 function endGame(){
   if(!game) return;
+  cancelAnimationFrame(pixelBgRaf);
   clearInterval(game.spawnTimer);
   cancelAnimationFrame(game.raf);
   game.icons.forEach(n=>n.remove());
