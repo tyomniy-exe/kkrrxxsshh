@@ -189,13 +189,10 @@ const BAD_ICONS = [
   'files/icons/bad1.png',
   'files/icons/bad2.png',
   'files/icons/bad3.png',
-  'files/icons/bad1.png',
-  'files/icons/bad2.png',
-  'files/icons/bad3.png',
 ];
 
 const GAME_DURATION = 60_000;
-const GOOD_PTS   = 4;
+const GOOD_PTS   = 5;
 const BAD_PTS    = -15;
 const MISS_PENALTY = -1;
 const ICON_SIZE  = 36;
@@ -311,7 +308,7 @@ function spawnIcon(){
 
   const rect = fieldEl.getBoundingClientRect();
   const x = Math.random() * (rect.width - ICON_SIZE);
-  const speed = 220 + Math.random() * 260;
+  const speed = 160 + Math.random() * 180;
 
   const node = document.createElement('img');
   node.className = 'falling-ico ' + (isBad ? 'bad' : 'good');
